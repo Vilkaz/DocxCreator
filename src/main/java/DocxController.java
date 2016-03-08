@@ -44,7 +44,7 @@ public class DocxController {
 
 
     /**
-     * It Works only, if all the Getters are for Strings
+     * It Iterates the Methods, excepts the getClass method, and puts the names and values into Hachmap
      *
      * @param dto
      * @return
@@ -55,8 +55,7 @@ public class DocxController {
             for (PropertyDescriptor propertyDescriptor :
                     Introspector.getBeanInfo(dto.getClass()).getPropertyDescriptors()) {
                 if (isGetter(propertyDescriptor)) {
-                    String value = getValueFromGetter(dto, propertyDescriptor);
-                    mappings.put(propertyDescriptor.getName(), value);
+                    mappings.put(propertyDescriptor.getName(), getValueFromGetter(dto, propertyDescriptor));
                 }
             }
         } catch (IntrospectionException e) {
@@ -66,12 +65,21 @@ public class DocxController {
 
     }
 
+
+
     private static boolean isGetter(PropertyDescriptor propertyDescriptor) {
         String name = propertyDescriptor.getName();
-        boolean result =  (name.equals("class") || name.startsWith("get"));
-        return  !result;
+        boolean result = (name.equals("class") || name.startsWith("get"));
+        return !result;
     }
 
+    /**
+     * it itterates the DTO, and puts all the Values from all the getters into Hashmap.
+     *
+     * @param dto
+     * @param propertyDescriptor
+     * @return
+     */
     private static String getValueFromGetter(Object dto, PropertyDescriptor propertyDescriptor) {
         Method method = propertyDescriptor.getReadMethod();
         String value = "";
@@ -82,7 +90,6 @@ public class DocxController {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-
         return value;
     }
 }

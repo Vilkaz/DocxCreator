@@ -40,7 +40,19 @@ public class DocxControllerTest extends TestCase {
     public void testGetHashmapFromDTO(){
         CoverDTO dto = new CoverDTO("test Headline", "test name", "test_projekt");
         HashMap<String, String> mapping =  DocxController.getHashmapFromDTO(dto);
-        System.out.println("test");
+        Assert.assertTrue(mapping.get("headline").equals("test Headline"));
+        Assert.assertTrue(mapping.get("name").equals("test name"));
+        Assert.assertTrue(mapping.get("project_type").equals("test_projekt"));
+    }
+
+
+    @Test
+    public void testInsertHashmapIntoTemplate(){
+        HashMap<String, String> mappings = new HashMap<String, String>();
+        mappings.put("headline", "test Headline");
+        mappings.put("name", "test name");
+        mappings.put("project_type", "test_projekt");
+
     }
 
 
