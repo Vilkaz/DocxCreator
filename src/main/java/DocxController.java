@@ -58,26 +58,6 @@ public class DocxController {
                     String value = getValueFromGetter(dto, propertyDescriptor);
                     mappings.put(propertyDescriptor.getName(), value);
                 }
-
-
-                //mappings.put(propertyDescriptor.getName(),propertyDescriptor.getValue());
-                System.out.println("Public method found: " + propertyDescriptor.getReadMethod());
-                Method method = propertyDescriptor.getReadMethod();
-
-
-                Object def1;
-                try {
-                    try {
-                        def1 = method.invoke(dto, new Object[]{});
-                        System.out.println(def1.toString());
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                }
-                String generic = method.toGenericString();
-                System.out.println("Value from that is : " + propertyDescriptor.getValue("getName"));
             }
         } catch (IntrospectionException e) {
             e.printStackTrace();
@@ -88,7 +68,8 @@ public class DocxController {
 
     private static boolean isGetter(PropertyDescriptor propertyDescriptor) {
         String name = propertyDescriptor.getName();
-        return (!name.equals("Class") || !name.startsWith("get"));
+        boolean result =  (name.equals("class") || name.startsWith("get"));
+        return  !result;
     }
 
     private static String getValueFromGetter(Object dto, PropertyDescriptor propertyDescriptor) {
