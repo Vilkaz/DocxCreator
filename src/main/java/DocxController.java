@@ -1,8 +1,9 @@
+import DTO.BasoCoverDTO;
 import org.docx4j.jaxb.Context;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
-import org.docx4j.wml.ObjectFactory;
+import org.docx4j.wml.*;
 
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -10,7 +11,9 @@ import java.beans.PropertyDescriptor;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by vkukanauskas on 08/03/2016.
@@ -102,6 +105,18 @@ public class DocxController {
             statusReport.setException(e);
         }
         return  statusReport;
+    }
+
+    public static void addPageBreak(WordprocessingMLPackage document) {
+        MainDocumentPart documentPart = document.getMainDocumentPart();
+        ObjectFactory  factory = Context.getWmlObjectFactory();
+        P p = factory.createP();
+        R r = factory.createR();
+        p.getContent().add(r);
+        Br br = factory.createBr();
+        r.getContent().add(br);
+        br.setType(STBrType.PAGE);
+        documentPart.addObject(p);
     }
 
 

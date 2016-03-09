@@ -1,3 +1,5 @@
+package DTO;
+
 /**
  * Created by vkukanauskas on 07/03/2016.
  */

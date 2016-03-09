@@ -1,3 +1,5 @@
+import DTO.*;
+import DTO.CoverDTO;
 import junit.framework.TestCase;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
@@ -6,6 +8,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 
@@ -39,7 +43,7 @@ public class DocxControllerTest extends TestCase {
 
     @Test
     public void testGetHashmapFromDTO() {
-        CoverDTO dto = new CoverDTO("test Headline", "test name", "test_projekt");
+        DTO.CoverDTO dto = new CoverDTO("test Headline", "test name", "test_projekt");
         HashMap<String, String> mapping = DocxController.getHashmapFromDTO(dto);
         Assert.assertTrue(mapping.get("headline").equals("test Headline"));
         Assert.assertTrue(mapping.get("name").equals("test name"));
@@ -65,7 +69,21 @@ public class DocxControllerTest extends TestCase {
         WordprocessingMLPackage document = getTestTemplate();
         DocxController.InsertDTOVariablesIntoDocx(document, dto);
     }
+    
 
+    //region private helpers
+
+    private static ArrayList<BasoCoverDTO> getListOfDTOs(){
+        BasoCoverDTO dto1 = new BasoCoverDTO("headline 1", "Name1", "Type of PRoject 1");
+        BasoCoverDTO dto2 = new BasoCoverDTO("headline 2", "Name2", "Type of PRoject 2");
+        BasoCoverDTO dto3 = new BasoCoverDTO("headline 3", "Name3", "Type of PRoject 3");
+        BasoCoverDTO dto4 = new BasoCoverDTO("headline 4", "Name4", "Type of PRoject 4");
+        BasoCoverDTO dto5 = new BasoCoverDTO("headline 5", "Name5", "Type of PRoject 5");
+        ArrayList<BasoCoverDTO> list = new ArrayList<>();
+        list.addAll(Arrays.asList(dto1,dto2, dto3, dto4, dto5));
+        return list;
+    }
+    
     private WordprocessingMLPackage getTestHashTemplate() {
         WordprocessingMLPackage document = null;
         try {
@@ -95,5 +113,7 @@ public class DocxControllerTest extends TestCase {
         return  map;
     }
 
+    
+    //endregion private helpers
 
 }

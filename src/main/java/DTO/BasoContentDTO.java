@@ -4,7 +4,7 @@ package DTO;
  * Created by vkukanauskas on 09/03/2016.
  */
 public class BasoContentDTO {
-    private String set_title;
+    private String titleLabel;
     private String steckbrief_id;
     private String location_label;
     private String disciplin_label;
@@ -24,8 +24,8 @@ public class BasoContentDTO {
     private String KRINKO_RKI_label;
     private String to_do_label;
 
-    public BasoContentDTO(String set_title, String steckbrief_id, String location_label, String disciplin_label, String set_name_label) {
-        this.set_title = set_title;
+    public BasoContentDTO(String titleLabel, String steckbrief_id, String location_label, String disciplin_label, String set_name_label) {
+        this.titleLabel = titleLabel;
         this.steckbrief_id = steckbrief_id;
         this.location_label = location_label;
         this.disciplin_label = disciplin_label;
@@ -34,8 +34,8 @@ public class BasoContentDTO {
 
     //region getter and setter
 
-    public String getSet_title() {
-        return set_title;
+    public String getTitleLabel() {
+        return titleLabel;
     }
 
     public String getSteckbrief_id() {
