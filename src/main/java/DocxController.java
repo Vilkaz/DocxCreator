@@ -4,14 +4,12 @@ import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.docx4j.wml.ObjectFactory;
 
-import javax.xml.bind.JAXBException;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.URL;
 import java.util.HashMap;
 
 /**
@@ -92,4 +90,19 @@ public class DocxController {
         }
         return value;
     }
+
+    public static StatusReport saveDocxInPath(WordprocessingMLPackage document, String path) {
+        StatusReport statusReport = new StatusReport();
+        try {
+            document.save(new File(path) );
+            statusReport.setStatus("ok");
+        } catch (Docx4JException e) {
+            e.printStackTrace();
+            statusReport.setStatus("exception");
+            statusReport.setException(e);
+        }
+        return  statusReport;
+    }
+
+
 }

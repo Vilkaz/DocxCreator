@@ -4,12 +4,12 @@
 public class CoverDTO {
     private String headline;
     private String name;
-    private String project_type;
+    private String projectType;
 
-    public CoverDTO(String headline, String name, String project_type) {
+    public CoverDTO(String headline, String name, String projectType) {
         this.headline = headline;
         this.name = name;
-        this.project_type = project_type;
+        this.projectType = projectType;
     }
 
     //region getter and setter
@@ -22,8 +22,8 @@ public class CoverDTO {
         return name;
     }
 
-    public String getProject_type() {
-        return project_type;
+    public String getProjectType() {
+        return projectType;
     }
 
 
