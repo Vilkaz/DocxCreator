@@ -6,12 +6,12 @@ package DTO;
 public class BasoCoverDTO {
     private String headline;
     private String name;
-    private String typeOfProject;
+    private String projectType;
 
     public BasoCoverDTO(String headline, String name, String typeOfPRoject) {
         this.headline = headline;
         this.name = name;
-        this.typeOfProject = typeOfPRoject;
+        this.projectType = typeOfPRoject;
     }
 
 
@@ -25,8 +25,8 @@ public class BasoCoverDTO {
         return name;
     }
 
-    public String getTypeOfProject() {
-        return typeOfProject;
+    public String getProjectType() {
+        return projectType;
     }
 
 

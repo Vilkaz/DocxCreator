@@ -4,6 +4,7 @@ import org.docx4j.openpackaging.parts.WordprocessingML.BinaryPartAbstractImage;
 import org.docx4j.wml.*;
 
 import java.io.*;
+import java.math.BigInteger;
 
 /**
  * Created by vkukanauskas on 08/03/2016.
@@ -107,6 +108,36 @@ public class PController {
         is.close();
         return bytes;
     }
+
+
+    public static P getLandscapeP(){
+        SectPr sectionLandscape = factory.createSectPr();
+        SectPr.PgSz landscape = new SectPr.PgSz();
+        landscape.setOrient(STPageOrientation.LANDSCAPE);
+        landscape.setH(BigInteger.valueOf(11906));
+        landscape.setW(BigInteger.valueOf(16383));
+        sectionLandscape.setPgSz(landscape);
+        P p = factory.createP();
+        PPr createPPr = factory.createPPr();
+        createPPr.setSectPr(sectionLandscape);
+        p.setPPr(createPPr);
+        return p;
+    }
+
+    public static P getPortraitP() {
+        SectPr sectionLandscape = factory.createSectPr();
+        SectPr.PgSz landscape = new SectPr.PgSz();
+        landscape.setOrient(STPageOrientation.PORTRAIT);
+        landscape.setW(BigInteger.valueOf(11906));
+        landscape.setH(BigInteger.valueOf(16383));
+        sectionLandscape.setPgSz(landscape);
+        P p = factory.createP();
+        PPr createPPr = factory.createPPr();
+        createPPr.setSectPr(sectionLandscape);
+        p.setPPr(createPPr);
+        return p;
+    }
+
 
 
 

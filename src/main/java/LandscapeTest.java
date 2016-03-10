@@ -40,16 +40,16 @@ public class LandscapeTest {
         MainDocumentPart mdp2 = landscapePAckage2.getMainDocumentPart();
 
         DocxController.addPageBreak(landscapePAckage2);
-        mdp2.getContent().add(getSectPrPortrait());
+        mdp2.getContent().add(PController.getPortraitP());
         mdp2.addStyledParagraphOfText("Title", "FLACH");
         mdp2.getContent().add(getTestTbl());
-        mdp2.getContent().add(getSectPrLandscape());
+        mdp2.getContent().add(PController.getLandscapeP());
         mdp2.addStyledParagraphOfText("Title", "Wieder hochkant");
         mdp2.getContent().add(getTestTbl());
-        mdp2.getContent().add(getSectPrPortrait());
+        mdp2.getContent().add(PController.getPortraitP());
         mdp2.addStyledParagraphOfText("Title", "und noch einmal Flach");
         mdp2.getContent().add(getTestTbl());
-        mdp2.getContent().add(getSectPrLandscape());
+        mdp2.getContent().add(PController.getLandscapeP());
         mdp2.addStyledParagraphOfText("Title", "und schon wieder hochkant");
 
 
@@ -77,32 +77,5 @@ public class LandscapeTest {
         return table;
     }
 
-    private static P getSectPrLandscape() {
-        SectPr sectionLandscape = factory.createSectPr();
-        SectPr.PgSz landscape = new SectPr.PgSz();
-        landscape.setOrient(STPageOrientation.LANDSCAPE);
-        landscape.setH(BigInteger.valueOf(11906));
-        landscape.setW(BigInteger.valueOf(16383));
-        sectionLandscape.setPgSz(landscape);
-        P p = factory.createP();
-        PPr createPPr = factory.createPPr();
-        createPPr.setSectPr(sectionLandscape);
-        p.setPPr(createPPr);
-        return p;
-    }
 
-
-    private static P getSectPrPortrait() {
-        SectPr sectionLandscape = factory.createSectPr();
-        SectPr.PgSz landscape = new SectPr.PgSz();
-        landscape.setOrient(STPageOrientation.PORTRAIT);
-        landscape.setW(BigInteger.valueOf(11906));
-        landscape.setH(BigInteger.valueOf(16383));
-        sectionLandscape.setPgSz(landscape);
-        P p = factory.createP();
-        PPr createPPr = factory.createPPr();
-        createPPr.setSectPr(sectionLandscape);
-        p.setPPr(createPPr);
-        return p;
-    }
 }

@@ -1,9 +1,7 @@
-import DTO.BasoContentDTO;
+import DTO.BasoTable1DTO;
 import DTO.BasoCoverDTO;
-import org.docx4j.convert.in.Doc;
 import org.docx4j.jaxb.Context;
 import org.docx4j.model.structure.PageSizePaper;
-import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.docx4j.wml.*;
@@ -11,7 +9,6 @@ import org.docx4j.wml.*;
 import javax.xml.bind.JAXBIntrospector;
 import java.io.File;
 import java.math.BigInteger;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -45,7 +42,7 @@ public class Test {
          * Jetzt wollen wir je nach Sprache die DTOs für den content kriegen,
          * idealerweise eine ArrayList von DTOs
          */
-        ArrayList<BasoContentDTO> dtoList = getListOfContentDTO();
+        ArrayList<BasoTable1DTO> dtoList = getListOfContentDTO();
         ArrayList<HashMap<String, String>> listOfMaps = new ArrayList<HashMap<String, String>>();
 
         for (Object dto : dtoList) {
@@ -141,13 +138,13 @@ public class Test {
     }
 
 
-    private static ArrayList<BasoContentDTO> getListOfContentDTO() {
-        BasoContentDTO dto1 = new BasoContentDTO("titel eins", "steckbirefid1", "string location label", "disziplin_labelDYnamisch", "nameLAbel");
-        BasoContentDTO dto2 = new BasoContentDTO("titel 2", "steckbirefid2", "string location label 2", "disziplin_labelDYnamisch 2", "nameLAbel 2");
-        BasoContentDTO dto3 = new BasoContentDTO("titel 3", "steckbirefid3", "string location label 3", "disziplin_labelDYnamisch  3", "nameLAbel 3");
-        BasoContentDTO dto4 = new BasoContentDTO("titel 4", "steckbirefid4", "string location label 4", "disziplin_labelDYnamisch  4", "nameLAbel 4");
-        ArrayList<BasoContentDTO> list = new ArrayList<BasoContentDTO>(Arrays.asList(dto1, dto2, dto3, dto4));
-        return list;
+    private static ArrayList<BasoTable1DTO> getListOfContentDTO() {
+//        BasoTable1DTO dto1 = new BasoTable1DTO("titel eins", "steckbirefid1", "string location label", "disziplin_labelDYnamisch", "nameLAbel");
+//        BasoTable1DTO dto2 = new BasoTable1DTO("titel 2", "steckbirefid2", "string location label 2", "disziplin_labelDYnamisch 2", "nameLAbel 2");
+//        BasoTable1DTO dto3 = new BasoTable1DTO("titel 3", "steckbirefid3", "string location label 3", "disziplin_labelDYnamisch  3", "nameLAbel 3");
+//        BasoTable1DTO dto4 = new BasoTable1DTO("titel 4", "steckbirefid4", "string location label 4", "disziplin_labelDYnamisch  4", "nameLAbel 4");
+//        ArrayList<BasoTable1DTO> list = new ArrayList<BasoTable1DTO>(Arrays.asList(dto1, dto2, dto3, dto4));
+        return null;
     }
 
     private static void trimmContent() {
