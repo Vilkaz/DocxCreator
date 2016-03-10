@@ -12,19 +12,19 @@ import java.math.BigInteger;
 public class PController {
 
     private static WordprocessingMLPackage wordMLPackage;
-    private static ObjectFactory factory;
+    private static ObjectFactory factory = new ObjectFactory();
 
-   public static P getPWithImage(String imageURL, WordprocessingMLPackage wordMLPackage){
-       PController.wordMLPackage = wordMLPackage;
-       P paragraphWithImage = null;
-       File file = new File(imageURL);
-       try {
-           paragraphWithImage = addInlineImageToParagraph(createInlineImage(file));
-       } catch (Exception e) {
-           e.printStackTrace();
-       }
-       return  paragraphWithImage;
-   }
+    public static P getPWithImage(String imageURL, WordprocessingMLPackage wordMLPackage) {
+        PController.wordMLPackage = wordMLPackage;
+        P paragraphWithImage = null;
+        File file = new File(imageURL);
+        try {
+            paragraphWithImage = addInlineImageToParagraph(createInlineImage(file));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return paragraphWithImage;
+    }
 
     /**
      * Adds a table cell to the given row with the given paragraph as content.
@@ -39,8 +39,8 @@ public class PController {
     }
 
     /**
-     *  Adds the in-line image to a new paragraph and then returns the paragraph.
-     *  Thism method has not changed from the previous example.
+     * Adds the in-line image to a new paragraph and then returns the paragraph.
+     * Thism method has not changed from the previous example.
      *
      * @param inline
      * @return
@@ -89,28 +89,28 @@ public class PController {
      */
     private static byte[] convertImageToByteArray(File file)
             throws FileNotFoundException, IOException {
-        InputStream is = new FileInputStream(file );
+        InputStream is = new FileInputStream(file);
         long length = file.length();
         // You cannot create an array using a long, it needs to be an int.
         if (length > Integer.MAX_VALUE) {
             System.out.println("File too large!!");
         }
-        byte[] bytes = new byte[(int)length];
+        byte[] bytes = new byte[(int) length];
         int offset = 0;
         int numRead = 0;
-        while (offset < bytes.length                && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) {
+        while (offset < bytes.length && (numRead = is.read(bytes, offset, bytes.length - offset)) >= 0) {
             offset += numRead;
         }
         // Ensure all the bytes have been read
         if (offset < bytes.length) {
-            System.out.println("Could not completely read file "+file.getName());
+            System.out.println("Could not completely read file " + file.getName());
         }
         is.close();
         return bytes;
     }
 
 
-    public static P getLandscapeP(){
+    public static P getLandscapeP() {
         SectPr sectionLandscape = factory.createSectPr();
         SectPr.PgSz landscape = new SectPr.PgSz();
         landscape.setOrient(STPageOrientation.LANDSCAPE);
@@ -125,6 +125,7 @@ public class PController {
     }
 
     public static P getPortraitP() {
+
         SectPr sectionLandscape = factory.createSectPr();
         SectPr.PgSz landscape = new SectPr.PgSz();
         landscape.setOrient(STPageOrientation.PORTRAIT);
@@ -137,8 +138,6 @@ public class PController {
         p.setPPr(createPPr);
         return p;
     }
-
-
 
 
 }

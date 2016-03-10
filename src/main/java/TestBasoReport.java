@@ -47,20 +47,22 @@ public class TestBasoReport {
          */
         P imageP = PController.getPWithImage(templateDir + "tecracer.png", reportDoc);
         Tbl tbl = (Tbl) JAXBIntrospector.getValue(table1MainDoc.getContent().get(2));
-//        tbl.setTblPr(TableController.getTblPrByWidth(5500));
         Tc cell = TableController.getCellWithValue(tbl, "set_img");
         cell.getContent().add(imageP);
-
-
         mainDocumentPart.getContent().addAll(table1MainDoc.getContent());
-        reportDoc.save(new File(templateDir + "step2-CoverAndTable1.docx"));
 
 
         /**
          * nun machen fügen wir tabelle 3 hin und machen das format = queer
          */
 
+        WordprocessingMLPackage table2Doc = WordprocessingMLPackage.load(new File(templateDir + "template_BASO_Power_Systems_Table2.docx"));
+        MainDocumentPart table2MDP = table2Doc.getMainDocumentPart();
+        mainDocumentPart.getContent().add(table2MDP.getContent().get(0));
 
+
+
+        reportDoc.save(new File(templateDir + "step2-CoverAndTable1.docx"));
     }
 
 
