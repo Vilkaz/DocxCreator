@@ -24,7 +24,8 @@ public class LandscapeTest {
     public static void main(String[] args) throws Exception {
         //landscape experiment feld
 
-        WordprocessingMLPackage landscapePAckage = WordprocessingMLPackage.createPackage(PageSizePaper.A4, true);
+        WordprocessingMLPackage landscapePAckage = WordprocessingMLPackage.load(new File(templateDir+"template_BASO_cover.docx"));
+//        WordprocessingMLPackage landscapePAckage = WordprocessingMLPackage.createPackage(PageSizePaper.A4, true);
         landscapePAckage.getMainDocumentPart().addStyledParagraphOfText("Title", "Flach liegend");
         landscapePAckage.getMainDocumentPart().addStyledParagraphOfText("Subtitle",
                 "This is a subtitle!");
@@ -32,7 +33,7 @@ public class LandscapeTest {
 
         MainDocumentPart mdp1 = landscapePAckage.getMainDocumentPart();
 
-        WordprocessingMLPackage landscapePAckage2 = WordprocessingMLPackage.createPackage(PageSizePaper.A4, false);
+        WordprocessingMLPackage landscapePAckage2 = WordprocessingMLPackage.load(new File(templateDir+"template_BASO_cover.docx"));
         landscapePAckage2.getMainDocumentPart().addStyledParagraphOfText("Title", "Hochkant Startseite");
         landscapePAckage2.getMainDocumentPart().addStyledParagraphOfText("Subtitle",
                 "This is a subtitle!");
@@ -51,7 +52,6 @@ public class LandscapeTest {
         mdp2.getContent().add(getTestTbl());
         mdp2.getContent().add(PController.getLandscapeP());
         mdp2.addStyledParagraphOfText("Title", "und schon wieder hochkant");
-
 
 //        DocxController.addPageBreak(landscapePAckage2);
 //        mdp2.getContent().addAll(mdp1.getContent());

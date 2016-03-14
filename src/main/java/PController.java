@@ -1,6 +1,8 @@
 import org.docx4j.dml.wordprocessingDrawing.Inline;
+import org.docx4j.jaxb.Context;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.BinaryPartAbstractImage;
+import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.docx4j.wml.*;
 
 import java.io.*;
@@ -125,7 +127,14 @@ public class PController {
     }
 
     public static P getPortraitP() {
-
+        P p = factory.createP();
+        SectPr sectionLandscape = factory.createSectPr();
+        PPr createPPr = getPortraitPPr();
+        createPPr.setSectPr(sectionLandscape);
+        p.setPPr(createPPr);
+        return p;
+    }
+    public static PPr getPortraitPPr() {
         SectPr sectionLandscape = factory.createSectPr();
         SectPr.PgSz landscape = new SectPr.PgSz();
         landscape.setOrient(STPageOrientation.PORTRAIT);
@@ -135,7 +144,17 @@ public class PController {
         P p = factory.createP();
         PPr createPPr = factory.createPPr();
         createPPr.setSectPr(sectionLandscape);
-        p.setPPr(createPPr);
+       return createPPr;
+    }
+
+    public static P getPageBreakP(){
+        ObjectFactory  factory = Context.getWmlObjectFactory();
+        P p = factory.createP();
+        R r = factory.createR();
+        p.getContent().add(r);
+        Br br = factory.createBr();
+        r.getContent().add(br);
+        br.setType(STBrType.PAGE);
         return p;
     }
 

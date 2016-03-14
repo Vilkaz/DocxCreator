@@ -109,13 +109,7 @@ public class DocxController {
 
     public static void addPageBreak(WordprocessingMLPackage document) {
         MainDocumentPart documentPart = document.getMainDocumentPart();
-        ObjectFactory  factory = Context.getWmlObjectFactory();
-        P p = factory.createP();
-        R r = factory.createR();
-        p.getContent().add(r);
-        Br br = factory.createBr();
-        r.getContent().add(br);
-        br.setType(STBrType.PAGE);
+        P p = PController.getPageBreakP();
         documentPart.addObject(p);
     }
 
