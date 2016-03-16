@@ -120,7 +120,7 @@ public class PController {
         landscape.setW(BigInteger.valueOf(16383));
         sectionLandscape.setPgSz(landscape);
         P p = factory.createP();
-        PPr createPPr = factory.createPPr();
+        PPr createPPr = getLandscapePPr();
         createPPr.setSectPr(sectionLandscape);
         p.setPPr(createPPr);
         return p;
@@ -134,14 +134,25 @@ public class PController {
         p.setPPr(createPPr);
         return p;
     }
+
     public static PPr getPortraitPPr() {
+        SectPr sectionLandscape = factory.createSectPr();
+        SectPr.PgSz landscape = new SectPr.PgSz();
+        landscape.setOrient(STPageOrientation.LANDSCAPE);
+        landscape.setH(BigInteger.valueOf(11906));
+        landscape.setW(BigInteger.valueOf(16383));
+        sectionLandscape.setPgSz(landscape);
+        PPr createPPr = factory.createPPr();
+        createPPr.setSectPr(sectionLandscape);
+        return createPPr;
+    }
+    public static PPr getLandscapePPr() {
         SectPr sectionLandscape = factory.createSectPr();
         SectPr.PgSz landscape = new SectPr.PgSz();
         landscape.setOrient(STPageOrientation.PORTRAIT);
         landscape.setW(BigInteger.valueOf(11906));
         landscape.setH(BigInteger.valueOf(16383));
         sectionLandscape.setPgSz(landscape);
-        P p = factory.createP();
         PPr createPPr = factory.createPPr();
         createPPr.setSectPr(sectionLandscape);
        return createPPr;
