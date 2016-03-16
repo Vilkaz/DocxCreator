@@ -35,7 +35,7 @@ public class Test {
         mainDocument = DocxController.getDocxFromTemplate(path);
         MainDocumentPart mainDocumentPart = mainDocument.getMainDocumentPart();
         BasoCoverDTO coverDTO = new BasoCoverDTO("dynamische Headline", "dynamischer String", "dynamischer PRojekt type");
-        HashMap<String, String> map = DocxController.getHashmapFromDTO(coverDTO);
+        HashMap<String, String> map = Reflections.getHashmapFromDTO(coverDTO);
         mainDocumentPart.variableReplace(map);
 
         /**
@@ -46,7 +46,7 @@ public class Test {
         ArrayList<HashMap<String, String>> listOfMaps = new ArrayList<HashMap<String, String>>();
 
         for (Object dto : dtoList) {
-            listOfMaps.add(DocxController.getHashmapFromDTO(dto));
+            listOfMaps.add(Reflections.getHashmapFromDTO(dto));
         }
 
 

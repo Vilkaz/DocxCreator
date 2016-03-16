@@ -41,14 +41,6 @@ public class DocxControllerTest extends TestCase {
         Assert.assertTrue(mainDocumentPart != null);
     }
 
-    @Test
-    public void testGetHashmapFromDTO() {
-        DTO.CoverDTO dto = new CoverDTO("test Headline", "test name", "test_projekt");
-        HashMap<String, String> mapping = DocxController.getHashmapFromDTO(dto);
-        Assert.assertTrue(mapping.get("headline").equals("test Headline"));
-        Assert.assertTrue(mapping.get("name").equals("test name"));
-        Assert.assertTrue(mapping.get("projectType").equals("test_projekt"));
-    }
 
 
     @Test
@@ -73,17 +65,7 @@ public class DocxControllerTest extends TestCase {
 
     //region private helpers
 
-    private static ArrayList<BasoCoverDTO> getListOfDTOs(){
-        BasoCoverDTO dto1 = new BasoCoverDTO("headline 1", "Name1", "Type of PRoject 1");
-        BasoCoverDTO dto2 = new BasoCoverDTO("headline 2", "Name2", "Type of PRoject 2");
-        BasoCoverDTO dto3 = new BasoCoverDTO("headline 3", "Name3", "Type of PRoject 3");
-        BasoCoverDTO dto4 = new BasoCoverDTO("headline 4", "Name4", "Type of PRoject 4");
-        BasoCoverDTO dto5 = new BasoCoverDTO("headline 5", "Name5", "Type of PRoject 5");
-        ArrayList<BasoCoverDTO> list = new ArrayList<>();
-        list.addAll(Arrays.asList(dto1,dto2, dto3, dto4, dto5));
-        return list;
-    }
-    
+
     private WordprocessingMLPackage getTestHashTemplate() {
         WordprocessingMLPackage document = null;
         try {
