@@ -36,7 +36,7 @@ public class TestBasoReport {
          * Jetzt wird InhaltsAnzeige (ToC) eingefügt
          */
         String tocLabel = "Inhaltsverzeichniss"; // muss in iwelcher DTO auch sein
-        mainDocumentPart.addStyledParagraphOfText("Title",tocLabel);
+        mainDocumentPart.addStyledParagraphOfText("Title", tocLabel);
         P tocP = factory.createP();
         mainDocumentPart.getContent().add(tocP);
         addTableOfContents(mainDocumentPart);
@@ -64,6 +64,42 @@ public class TestBasoReport {
         tblWidth.setW(BigInteger.valueOf(10000));
         tblPr.setTblW(tblWidth);
         tbl.setTblPr(tblPr);
+
+
+        /**
+         * style adding
+         */
+
+        Styles styles = mainDocumentPart.getStyleDefinitionsPart().getJaxbElement();
+        ObjectFactory factory = Context.getWmlObjectFactory();
+
+        for (Style s : styles.getStyle()) {
+            RPr rpr = s.getRPr();
+            if (rpr == null) {
+                rpr = factory.createRPr();
+                s.setRPr(rpr);
+            }
+            RFonts rf = rpr.getRFonts();
+            if (rf == null) {
+                rf = factory.createRFonts();
+                rpr.setRFonts(rf);
+            }
+            // This is where you set your font name.
+            org.docx4j.wml.Color color =factory.createColor();
+            color.setVal("FF0000");
+//            rpr.setColor(color);
+            rpr.getSz().setVal(BigInteger.valueOf(36));
+            HpsMeasure hps = factory.createHpsMeasure();
+            hps.setVal(BigInteger.valueOf(36));
+            rpr.setSz(hps);
+            rf.setAscii("RotisSansSerif");
+        }
+
+        /**
+         * ende der Style spielereien
+         */
+
+
         mainDocumentPart.addStyledParagraphOfText("Heading2", "Hochkannt heading 2Tabelle Sieb So und so");
         mainDocumentPart.getContent().add(tbl1);
         mainDocumentPart.getContent().add(PController.getPortraitP());
@@ -82,8 +118,8 @@ public class TestBasoReport {
     }
 
     private static void addTableOfContents(MainDocumentPart mainDocumentPart) {
-        Document wmlDocumentEl = (Document)mainDocumentPart.getJaxbElement();
-        Body body =  wmlDocumentEl.getBody();
+        Document wmlDocumentEl = (Document) mainDocumentPart.getJaxbElement();
+        Body body = wmlDocumentEl.getBody();
 
         ObjectFactory factory = Context.getWmlObjectFactory();
 
@@ -112,7 +148,7 @@ public class TestBasoReport {
         Text txt = new Text();
         txt.setSpace("preserve");
         txt.setValue("TOC \\o \"1-3\" \\h \\z \\u \\h");
-        r.getContent().add(factory.createRInstrText(txt) );
+        r.getContent().add(factory.createRInstrText(txt));
         paragraphForTOC.getContent().add(r1);
 
         FldChar fldcharend = factory.createFldChar();
@@ -174,7 +210,7 @@ public class TestBasoReport {
 
     public static JAXBElement getWrappedFldChar(FldChar fldchar) {
 
-        return new JAXBElement( new QName(Namespaces.NS_WORD12, "fldChar"),
+        return new JAXBElement(new QName(Namespaces.NS_WORD12, "fldChar"),
                 FldChar.class, fldchar);
 
     }
