@@ -85,14 +85,15 @@ public class TestBasoReport {
                 rpr.setRFonts(rf);
             }
             // This is where you set your font name.
-            org.docx4j.wml.Color color =factory.createColor();
-            color.setVal("FF0000");
-//            rpr.setColor(color);
-            rpr.getSz().setVal(BigInteger.valueOf(36));
-            HpsMeasure hps = factory.createHpsMeasure();
-            hps.setVal(BigInteger.valueOf(36));
-            rpr.setSz(hps);
             rf.setAscii("RotisSansSerif");
+
+//            org.docx4j.wml.Color color =factory.createColor();
+//            color.setVal("FF0000");
+////            rpr.setColor(color);
+//            rpr.getSz().setVal(BigInteger.valueOf(36));
+//            HpsMeasure hps = factory.createHpsMeasure();
+//            hps.setVal(BigInteger.valueOf(36));
+//            rpr.setSz(hps);
         }
 
         /**
