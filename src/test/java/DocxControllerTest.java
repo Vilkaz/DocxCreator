@@ -1,4 +1,3 @@
-import DTO.*;
 import DTO.CoverDTO;
 import junit.framework.TestCase;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
@@ -8,8 +7,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 

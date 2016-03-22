@@ -37,7 +37,8 @@ public class TestBasoReport {
          */
         String tocLabel = "Inhaltsverzeichniss"; // muss in iwelcher DTO auch sein
         mainDocumentPart.addStyledParagraphOfText("Title",tocLabel);
-//        mainDocumentPart.addStyledParagraphOfText("Heading1",tocLabel);
+        P tocP = factory.createP();
+        mainDocumentPart.getContent().add(tocP);
         addTableOfContents(mainDocumentPart);
         DocxController.addPageBreak(reportDoc);
 

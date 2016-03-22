@@ -16,6 +16,8 @@ public class PController {
     private static WordprocessingMLPackage wordMLPackage;
     private static ObjectFactory factory = new ObjectFactory();
 
+
+
     public static P getPWithImage(String imageURL, WordprocessingMLPackage wordMLPackage) {
         PController.wordMLPackage = wordMLPackage;
         P paragraphWithImage = null;
@@ -169,5 +171,61 @@ public class PController {
         return p;
     }
 
+    /**
+     *  First we create a run properties object as we want to remove nearly all of
+     *  the existing styling. Then we change the font and font size and set the
+     *  run properties on the given style. As in previous examples, the font size
+     *  is defined to be in half-point size.
+     */
+    public static void alterNormalStyle(Style style) {
+        // we want to change (or remove) almost all the run properties of the
+        // normal style, so we create a new one.
+        RPr rpr = new RPr();
+        changeFontToArial(rpr);
+        changeFontSize(rpr, 20);
+        style.setRPr(rpr);
+    }
 
+    /**
+     *  Change the font of the given run properties to Arial.
+     *
+     *  A run font specifies the fonts which shall be used to display the contents
+     *  of the run. Of the four possible types of content, we change the styling of
+     *  two of them: ASCII and High ANSI.
+     *  Finally we add the run font to the run properties.
+     *
+     *  @param runProperties
+     */
+    private static void changeFontToArial(RPr runProperties) {
+        RFonts runFont = new RFonts();
+        runFont.setAscii("Arial");
+        runFont.setHAnsi("Arial");
+        runProperties.setRFonts(runFont);
+    }
+
+    /**
+     * Change the font size of the given run properties to the given value.
+     *
+     * @param runProperties
+     * @param fontSize  Twice the size needed, as it is specified as half-point value
+     */
+    private static void changeFontSize(RPr runProperties, int fontSize) {
+        HpsMeasure size = new HpsMeasure();
+        size.setVal(BigInteger.valueOf(fontSize));
+        runProperties.setSz(size);
+    }
+
+
+
+
+    public static P getPWithText(String text) {
+        P p = factory.createP();
+        R r = factory.createR();
+        Text txt = new Text();
+        txt.setValue(text);
+        r.getContent().add(factory.createRInstrText(txt));
+        p.getContent().add(r);
+        return p;
+
+    }
 }
