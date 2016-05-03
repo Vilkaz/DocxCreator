@@ -20,6 +20,7 @@ public class TestBasoReport {
 
     private static ObjectFactory factory = Context.getWmlObjectFactory();
     private static String rootDir = System.getProperty("user.dir");
+    private static String saveDir = "C:\\development\\VMs\\sharedFolder\\";
     private static String templateDir = rootDir + "\\src\\main\\resources\\";
 
     public static void main(String[] args) throws Exception {
@@ -115,7 +116,7 @@ public class TestBasoReport {
         Tbl tbl2 = (Tbl) JAXBIntrospector.getValue(table2MDP.getContent().get(0));
         mainDocumentPart.getContent().add(tbl2);
         mainDocumentPart.getContent().add(PController.getLandscapeP());
-        reportDoc.save(new File(templateDir + "step3-addDritteTabelle.docx"));
+        reportDoc.save(new File(saveDir + "step3-addDritteTabelle.docx"));
     }
 
     private static void addTableOfContents(MainDocumentPart mainDocumentPart) {
@@ -136,29 +137,34 @@ public class TestBasoReport {
 		        <w:fldChar w:fldCharType="end"/>
 		      </w:r>
 		    </w:p>         */
-        P paragraphForTOC = factory.createP();
-        R r = factory.createR();
+//        P paragraphForTOC = factory.createP();
+//        R r = factory.createR();
+//
+//        FldChar fldchar = factory.createFldChar();
+//        fldchar.setFldCharType(STFldCharType.BEGIN);
+//        fldchar.setDirty(true);
+//        r.getContent().add(getWrappedFldChar(fldchar));
+//        paragraphForTOC.getContent().add(r);
+//
+//        R r1 = factory.createR();
+//        Text txt = new Text();
+//        txt.setSpace("preserve");
+//        txt.setValue("TOC \\o \"1-3\" \\h \\z \\u \\h");
+//        r.getContent().add(factory.createRInstrText(txt));
+//
+//        paragraphForTOC.getContent().add(r1);
 
-        FldChar fldchar = factory.createFldChar();
-        fldchar.setFldCharType(STFldCharType.BEGIN);
-        fldchar.setDirty(true);
-        r.getContent().add(getWrappedFldChar(fldchar));
-        paragraphForTOC.getContent().add(r);
 
-        R r1 = factory.createR();
-        Text txt = new Text();
-        txt.setSpace("preserve");
-        txt.setValue("TOC \\o \"1-3\" \\h \\z \\u \\h");
-        r.getContent().add(factory.createRInstrText(txt));
-        paragraphForTOC.getContent().add(r1);
+        TOC.addTableOfContent(mainDocumentPart, factory);
+
 
         FldChar fldcharend = factory.createFldChar();
         fldcharend.setFldCharType(STFldCharType.END);
         R r2 = factory.createR();
         r2.getContent().add(getWrappedFldChar(fldcharend));
-        paragraphForTOC.getContent().add(r2);
+//        paragraphForTOC.getContent().add(r2);
 
-        body.getContent().add(paragraphForTOC);
+//        body.getContent().add(paragraphForTOC);
     }
 
 
