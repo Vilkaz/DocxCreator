@@ -1,0 +1,1 @@
+xalan.jar was deleted (2.7.0). The xalan 2.7.1 from docx4j will be used

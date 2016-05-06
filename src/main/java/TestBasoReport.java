@@ -2,8 +2,12 @@ import DTO.BasoCoverDTO;
 import DTO.BasoTable1DTO;
 import org.apache.commons.lang.RandomStringUtils;
 import org.docx4j.jaxb.Context;
+import org.docx4j.openpackaging.contenttype.ContentType;
+import org.docx4j.openpackaging.contenttype.ContentTypes;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
+import org.docx4j.openpackaging.parts.WordprocessingML.DocumentSettingsPart;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
+import org.docx4j.openpackaging.parts.WordprocessingML.StyleDefinitionsPart;
 import org.docx4j.openpackaging.parts.relationships.Namespaces;
 import org.docx4j.wml.*;
 
@@ -12,6 +16,7 @@ import javax.xml.bind.JAXBIntrospector;
 import javax.xml.namespace.QName;
 import java.io.File;
 import java.math.BigInteger;
+import java.util.ArrayList;
 
 /**
  * Created by vkukanauskas on 10/03/2016.
@@ -33,15 +38,17 @@ public class TestBasoReport {
         MainDocumentPart mainDocumentPart = reportDoc.getMainDocumentPart();
         mainDocumentPart.variableReplace(Reflections.getHashmapFromDTO(getRandomCoverDTO()));
 
-        /**
-         * Jetzt wird InhaltsAnzeige (ToC) eingefügt
-         */
-        String tocLabel = "Inhaltsverzeichniss"; // muss in iwelcher DTO auch sein
-        mainDocumentPart.addStyledParagraphOfText("Title", tocLabel);
-        P tocP = factory.createP();
-        mainDocumentPart.getContent().add(tocP);
-        addTableOfContents(mainDocumentPart);
-        DocxController.addPageBreak(reportDoc);
+        reportDoc.save(new File(saveDir + "step1.docx"));
+
+//        /**
+//         * Jetzt wird InhaltsAnzeige (ToC) eingefügt
+//         */
+//        String tocLabel = "Inhaltsverzeichniss"; // muss in iwelcher DTO auch sein
+//        mainDocumentPart.addStyledParagraphOfText("Title", tocLabel);
+//        P tocP = factory.createP();
+//        mainDocumentPart.getContent().add(tocP);
+//        addTableOfContents(mainDocumentPart);
+//        DocxController.addPageBreak(reportDoc);
 
 
         /**
@@ -50,6 +57,16 @@ public class TestBasoReport {
         WordprocessingMLPackage table1Doc = WordprocessingMLPackage.load(new File(templateDir + "template_BASO_Power_Systems_Table1.docx"));
         MainDocumentPart table1MainDoc = table1Doc.getMainDocumentPart();
         table1MainDoc.variableReplace(Reflections.getHashmapFromDTO(getTable1RandomDTO()));
+
+//        for (int i=0; i<= table1MainDoc.getContent().size()-1;i++)    {
+//            if (i >= 0) mainDocumentPart.getContent().add(table1MainDoc.getContent().get(i));
+//        }
+
+        mainDocumentPart.getContent().add(PController.getPageBreakP());
+
+        mainDocumentPart.getContent().addAll(table1MainDoc.getContent());
+
+        reportDoc.save(new File(saveDir + "step2.docx"));
 
         /**
          * da die variablen nicht das Bild ersetzen können, ersetzen wir dies mit einer eigener Funktion
@@ -66,6 +83,18 @@ public class TestBasoReport {
         tblPr.setTblW(tblWidth);
         tbl.setTblPr(tblPr);
 
+
+        StyleDefinitionsPart styleDefinitionsPart = mainDocumentPart.getStyleDefinitionsPart();
+        System.out.println();
+
+        Tbl t2 = new Tbl();
+
+        TableController.getCellWithValue(t2, "asd");
+
+
+        mainDocumentPart.getContent().add(t2);
+
+        reportDoc.save(new File(saveDir + "step3.docx"));
 
         /**
          * style adding
@@ -103,8 +132,13 @@ public class TestBasoReport {
 
 
         mainDocumentPart.addStyledParagraphOfText("Heading2", "Hochkannt heading 2Tabelle Sieb So und so");
-        mainDocumentPart.getContent().add(tbl1);
-        mainDocumentPart.getContent().add(PController.getPortraitP());
+
+//        DocumentSettingsPart dsp =   mainDocumentPart.getDocumentSettingsPart();
+//        dsp.setContentType(new ContentType(ContentTypes.WORDPROCESSINGML_DOCUMENT));
+
+        System.out.println();
+
+        reportDoc.save(new File(saveDir + "step3-5.docx"));
 
         /**
          * nun machen fügen wir tabelle 3 hin und machen das format = queer
@@ -116,7 +150,7 @@ public class TestBasoReport {
         Tbl tbl2 = (Tbl) JAXBIntrospector.getValue(table2MDP.getContent().get(0));
         mainDocumentPart.getContent().add(tbl2);
         mainDocumentPart.getContent().add(PController.getLandscapeP());
-        reportDoc.save(new File(saveDir + "step3-addDritteTabelle.docx"));
+        reportDoc.save(new File(saveDir + "step4.docx"));
     }
 
     private static void addTableOfContents(MainDocumentPart mainDocumentPart) {
@@ -155,7 +189,15 @@ public class TestBasoReport {
 //        paragraphForTOC.getContent().add(r1);
 
 
-        TOC.addTableOfContent(mainDocumentPart, factory);
+//        TOC.addTableOfContent(mainDocumentPart, factory);
+
+
+
+
+
+        System.out.println();
+
+        MyToc.addToC(mainDocumentPart, factory);
 
 
         FldChar fldcharend = factory.createFldChar();
